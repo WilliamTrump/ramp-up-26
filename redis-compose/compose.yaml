@@ -1,0 +1,19 @@
+services:
+  redis:
+    image: redis:latest
+
+  publisher:
+    build:
+      context: .
+      dockerfile: Dockerfile.publisher
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  subscriber:
+    build:
+      context: .
+      dockerfile: Dockerfile.subscriber
+    depends_on:
+      - redis
